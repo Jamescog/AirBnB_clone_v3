@@ -72,9 +72,8 @@ class FileStorage:
     def get(self, cls, id):
         """retrieve one object from file_storage"""
         if type(cls) == str and cls in classes:
-            if type(id) == str:
-                key = "{}.{}".format(cls, id)
-                object = self.__objects.get(key, None)
+            key = "{}.{}".format(cls, id)
+            object = self.__objects.get(key, None)
         else:
             return None
 
