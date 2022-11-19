@@ -12,7 +12,6 @@ from models.review import Review
 from models.state import State
 from models.user import User
 from os import getenv
-import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
@@ -74,3 +73,26 @@ class DBStorage:
     def close(self):
         """call remove() method on the private session attribute"""
         self.__session.remove()
+
+    def get(self, cls, id):
+        """A method to retrieve one object"""
+        if type(cls) == str and cls in classes.keys():
+            cls = classes[cls]
+            result = self.__session.query(cls).filter(cls.id ==  id).first()
+            return result
+        else:
+            return None
+
+    def count(self, cls=None):
+        """Count and return the number of objects in storage"""
+        tot = 0
+        if type(cls) == str and cls in classes.keys():
+            cls = classes[cls]
+            tot = self.__session.query(cls).count()
+        else:
+            for cls in classes.values():
+                tot += self.__session.query(cls).count()
+        return tot
+
+
+
