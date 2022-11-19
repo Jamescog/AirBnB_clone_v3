@@ -74,6 +74,7 @@ class FileStorage:
         if type(cls) == str and cls in classes:
             key = "{}.{}".format(cls, id)
             object = self.__objects.get(key, None)
+            return object
         else:
             return None
 
