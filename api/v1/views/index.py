@@ -5,13 +5,14 @@ from flask import jsonify
 from models import storage
 
 stat_dict = {
-    "amenities": "Amenities", 
-  "cities": "Cities", 
-  "places": "Places", 
-  "reviews": "Reviews", 
-  "states": "States", 
-  "users": "Users"
+    "amenities": "Amenities",
+    "cities": "Cities",
+    "places": "Places",
+    "reviews": "Reviews",
+    "states": "States",
+    "users": "Users"
 }
+
 
 @app_views.route('/status', strict_slashes=False)
 def status():
