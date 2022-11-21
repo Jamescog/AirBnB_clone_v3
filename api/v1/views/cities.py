@@ -24,7 +24,7 @@ def get_cities(state_id):
         cities.append(city.to_dict())
     return jsonify(cities)
 
-    
+
 @app_views.route('/cities/<string:city_id>',
                  methods=['GET'],
                  strict_slashes=False)
@@ -66,7 +66,6 @@ def post_city(state_id):
     city = City(**kwargs)
     city.save()
     return make_response(jsonify(city.to_dict()), 201)
-
 
 
 @app_views.route('/cities/<string:city_id>', methods=['PUT'],
