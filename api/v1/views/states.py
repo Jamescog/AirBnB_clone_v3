@@ -15,7 +15,7 @@ from models.state import State
 def all_state():
     """handles states requests for GET HTTP method"""
     states = []
-    for state in storage.all("State"):
+    for state in storage.all("State").values():
         states.append(state.to_dict())
     return jsonify(states)
 
