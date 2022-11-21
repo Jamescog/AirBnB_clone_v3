@@ -16,7 +16,7 @@ def get_users():
     """Retrieves the list of all User objects"""
     users = []
     for user in storage.all("User").values():
-        users.append(user.to_ditct())
+        users.append(user.to_dict())
     return jsonify(users)
 
 
@@ -59,9 +59,9 @@ def post_one_user():
 
 @app_views.route('/users/<string:user_id>',
                  methods=['PUT'], strict_slashes=False)
-def update_user(state_id):
+def update_user(user_id):
     """Update exsting object of user"""
-    user = storage.get("User", state_id)
+    user = storage.get("User", user_id)
     if user is None:
         abort(404)
     if not request.get_json():
