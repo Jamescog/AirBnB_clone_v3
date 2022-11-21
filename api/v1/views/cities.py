@@ -29,21 +29,25 @@ def get_city(city_id):
     if city is None:
         abort(404)
     return jsonify(city.to_dict())
+
+
 @app_views.route('/cities/<string:city_id>', methods=['DELETE'],
                  strict_slashes=False)
 def delete_city(city_id):
-    """delete city by using city id"""
-    city = storage.get("city", city_id)
+    """deletes a city based on its city_id"""
+    city = storage.get("City", city_id)
     if city is None:
         abort(404)
-    city.Delete()
-    city.Save()
+    city.delete()
+    storage.save()
     return (jsonify({}))
-@app_views.route('/cities/<string:state_id>', methods=['POST'],
+
+
+@app_views.route('/states/<string:state_id>/cities/', methods=['POST'],
                  strict_slashes=False)
 def post_city(state_id):
-    """add new city"""
-    city = storage.get("State", state_id)
+    """create a new city"""
+    state = storage.get("State", state_id)
     if state is None:
         abort(404)
     if not request.get_json():
@@ -55,11 +59,14 @@ def post_city(state_id):
     city = City(**kwargs)
     city.save()
     return make_response(jsonify(city.to_dict()), 201)
+
+
+
 @app_views.route('/cities/<string:city_id>', methods=['PUT'],
                  strict_slashes=False)
-def update_city(city_id):
-    """update city information"""
-    city = storage.get("city", city_id)
+def put_city(city_id):
+    """update a city information"""
+    city = storage.get("City", city_id)
     if city is None:
         abort(404)
     if not request.get_json():
